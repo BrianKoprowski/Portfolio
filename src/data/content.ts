@@ -81,9 +81,9 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
     {
       id: 'd1',
       title: 'Movement Script',
-      description: 'C# logic for player controller.',
+      description: 'GDD for first C# game',
       type: 'code',
-      url: 'https://github.com/yourusername/repo' // Or a Drive link to a PDF of code
+      url: 'https://docs.google.com/document/d/1iKSqN8j2U1i4itjcww_nulVffr0cgqxC/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true' // Or a Drive link to a PDF of code
     }
   ],
 
