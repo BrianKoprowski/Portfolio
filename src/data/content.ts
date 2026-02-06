@@ -17,7 +17,7 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
       description: 'Ambient background noise for the forest level.',
       type: 'audio',
       // PASTE GOOGLE DRIVE LINK HERE
-      url: 'https://drive.google.com/file/d/1U9y-Wn.../view?usp=sharing' 
+      url: 'https://drive.google.com/drive/folders/1uuqEc4UBXvz6UBcS68tt4xstYHPxZk-Q?usp=sharing' 
     },
     {
       id: 'a2',
