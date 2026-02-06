@@ -1,5 +1,5 @@
 import React from 'react';
-import { LucideIcon, ExternalLink, FileText, Music, Image as ImageIcon, Code, Film } from 'lucide-react';
+import { LucideIcon, ExternalLink, FileText, Music } from 'lucide-react';
 import BackButton from '../components/BackButton';
 import { portfolioContent, ProjectItem } from '../src/data/content';
 
