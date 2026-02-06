@@ -27,8 +27,7 @@ const Home: React.FC = () => {
             Creative Portfolio
           </h1>
           <p className="text-lg text-slate-700 leading-relaxed font-medium">
-            Welcome to my digital space. I am a passionate creator bridging the gap between Audio, Art, and Development. 
-            Here you can explore my works, research, and my Final Major Project.
+            Welcome to my portfolio. I am Brian Koprowski, student at Chichester College. This Portfolio is a presentation of my work and projects. On this page you can explore my work files, research, and my Final Major Project at HSDC.
           </p>
         </div>
       </section>
@@ -50,7 +49,7 @@ const Home: React.FC = () => {
         <GlassCard 
           title="Research" 
           icon={BookOpen} 
-          description="Academic & creative studies"
+          description="Coursework & creative studies"
           to="/research"
         />
         <GlassCard 
