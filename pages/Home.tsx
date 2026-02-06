@@ -15,7 +15,7 @@ const Home: React.FC = () => {
                 If you have a local file, put it in a public folder and reference it.
              */}
             <img 
-              src="https://picsum.photos/200" 
+              src="https://github.com/BrianKoprowski/Portfolio/blob/main/components/my_logo.png?raw=true" 
               alt="My Logo" 
               className="w-full h-full object-cover"
             />
