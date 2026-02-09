@@ -23,9 +23,19 @@ const getEmbedUrl = (url: string): string => {
 
 const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
   const embedUrl = getEmbedUrl(item.url);
+  
+  // Calculate column span based on size prop (default to 1)
+  const sizeClass = (() => {
+    switch (item.size) {
+      case 2: return "col-span-1 md:col-span-2";
+      case 3: return "col-span-1 md:col-span-2 lg:col-span-3";
+      case 4: return "col-span-1 md:col-span-2 lg:col-span-4";
+      default: return "col-span-1"; // size 1
+    }
+  })();
 
   return (
-    <div className="bg-white/40 backdrop-blur-md rounded-2xl border border-white/50 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:scale-[1.01] group flex flex-col h-full">
+    <div className={`bg-white/40 backdrop-blur-md rounded-2xl border border-white/50 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:scale-[1.01] group flex flex-col h-full ${sizeClass}`}>
       {/* Preview Area */}
       <div className="w-full aspect-video bg-slate-100 relative border-b border-white/30 overflow-hidden group-hover:border-teal-400/30 transition-colors">
         
@@ -111,9 +121,9 @@ const GenericPage: React.FC<GenericPageProps> = ({ title, categoryKey, icon: Ico
         </div>
       </div>
       
-      {/* Content Grid */}
+      {/* Content Grid - Updated to lg:grid-cols-4 for finer sizing control */}
       {items.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
            {items.map((item) => (
              <ContentCard key={item.id} item={item} />
            ))}
