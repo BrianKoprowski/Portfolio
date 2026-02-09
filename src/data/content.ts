@@ -2,10 +2,21 @@ export interface ProjectItem {
   id: string;
   title: string;
   description: string;
-  type: 'image' | 'document' | 'audio' | 'video' | 'code';
-  url: string; // The Google Drive Share Link or Direct URL
+  type: 'image' | 'document' | 'audio' | 'video' | 'code' | 'carousel';
+  url: string; // Main link (or fallback for carousel)
+  images?: string[]; // Array of image URLs for the carousel type
   size?: 1 | 2 | 3 | 4; // 1 = Smallest, 4 = Full Width
 }
+
+// Configuration for specific category pages (e.g. Header Images)
+export const categoryConfigs: Record<string, { headerImage?: string; description?: string }> = {
+  'fmp-art': {
+    headerImage: 'https://picsum.photos/1200/400', // EXAMPLE HEADER IMAGE FOR FMP ART
+  },
+  'fmp-timeline': {
+    // headerImage: '...' // You can add headers for other pages here too
+  }
+};
 
 export const portfolioContent: Record<string, ProjectItem[]> = {
   // =========================================================================
@@ -99,8 +110,28 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
   // FMP SPECIFIC CONTENT
   // =========================================================================
   'fmp-research': [],
-  'fmp-art': [],
+  
+  'fmp-art': [
+    {
+      id: 'fa1',
+      title: 'Environment Concept Art',
+      description: 'A gallery of environment concepts showing different times of day.',
+      type: 'carousel',
+      url: '', // Not used for carousel view, but good to have a fallback link
+      size: 4, // Full width for the carousel
+      images: [
+        'https://picsum.photos/800/450?random=1',
+        'https://picsum.photos/800/450?random=2',
+        'https://picsum.photos/800/450?random=3',
+        'https://picsum.photos/800/450?random=4',
+        'https://picsum.photos/800/450?random=5',
+        'https://picsum.photos/800/450?random=6'
+      ]
+    }
+  ],
+
   'fmp-dev': [],
+  
   'fmp-timeline': [
     {
        id: 't1',
@@ -111,6 +142,7 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
        size: 4
     }
   ],
+  
   'fmp-gdd': [
     {
       id: 'gdd1',
