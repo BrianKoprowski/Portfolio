@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LucideIcon, ExternalLink, FileText, Music, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
+import { LucideIcon, ExternalLink, FileText, Music, ChevronLeft, ChevronRight } from 'lucide-react';
 import BackButton from '../components/BackButton';
 import { portfolioContent, ProjectItem, categoryConfigs } from '../src/data/content';
 
