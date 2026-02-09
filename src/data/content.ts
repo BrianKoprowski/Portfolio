@@ -11,7 +11,7 @@ export interface ProjectItem {
 // Configuration for specific category pages (e.g. Header Images)
 export const categoryConfigs: Record<string, { headerImage?: string; description?: string }> = {
   'fmp-hub': {
-    headerImage: 'https://picsum.photos/1200/400', // HEADER IMAGE FOR MAIN FMP PAGE
+    headerImage: 'https://drive.google.com/file/d/1LaVOKqdcaeIx9RvVKQ6U0UyD437P990e/view?usp=sharing', // HEADER IMAGE FOR MAIN FMP PAGE
   },
   'fmp-art': {
     // headerImage removed from here, moved to fmp-hub
