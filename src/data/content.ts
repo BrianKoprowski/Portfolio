@@ -165,10 +165,10 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
   'fmp-timeline': [
     {
        id: 't1',
-       title: 'Project Roadmap',
-       description: 'Gantt chart and milestone tracking.',
+       title: 'FMP Roadmap',
+       description: 'This was my FMP roadmap to match my work schedule and in what time i have managed to complete each component.',
        type: 'document',
-       url: 'https://drive.google.com/file/d/1U9y-Wn.../view?usp=sharing',
+       url: 'https://docs.google.com/document/d/12-uzCdSaTKCs_PhGK04G7Q1qsiU7Qzxn/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true',
        size: 4
     }
   ],
@@ -177,9 +177,9 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
     {
       id: 'gdd1',
       title: 'Master Game Design Document',
-      description: 'The complete specification for the project.',
+      description: 'This is the GDD of my final project which summarises my ideas and final idea of the project.',
       type: 'document',
-      url: 'https://drive.google.com/file/d/1U9y-Wn.../view?usp=sharing',
+      url: 'https://docs.google.com/document/d/1kawPFTPqRyXokyjm8N7_xyv0x-C1H1ad/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true',
       size: 4
     }
   ]
