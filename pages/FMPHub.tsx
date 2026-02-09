@@ -2,11 +2,27 @@ import React from 'react';
 import { Palette, BookOpen, Code, FileText, Layers, Calendar } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
 import BackButton from '../components/BackButton';
+import { categoryConfigs } from '../src/data/content';
 
 const FMPHub: React.FC = () => {
+  // Fetch config for the main FMP hub page
+  const config = categoryConfigs['fmp-hub'];
+
   return (
     <div className="max-w-6xl mx-auto w-full animate-fade-in">
       <BackButton />
+
+      {/* Dynamic Header Image */}
+      {config?.headerImage && (
+        <div className="relative w-full h-48 md:h-64 rounded-3xl overflow-hidden mb-8 border border-white/40 shadow-lg">
+          <img 
+            src={config.headerImage} 
+            alt="FMP Header" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent pointer-events-none" />
+        </div>
+      )}
 
       <div className="glass-panel p-8 md:p-10 rounded-3xl mb-8 border-l-8 border-l-teal-400">
         <div className="flex items-center gap-4 mb-2">
