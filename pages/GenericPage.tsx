@@ -1,7 +1,7 @@
-import React from 'react';
-import { LucideIcon, ExternalLink, FileText, Music } from 'lucide-react';
+import React, { useState } from 'react';
+import { LucideIcon, ExternalLink, FileText, Music, ChevronLeft, ChevronRight, Image as ImageIcon } from 'lucide-react';
 import BackButton from '../components/BackButton';
-import { portfolioContent, ProjectItem } from '../src/data/content';
+import { portfolioContent, ProjectItem, categoryConfigs } from '../src/data/content';
 
 interface GenericPageProps {
   title: string;
@@ -23,6 +23,7 @@ const getEmbedUrl = (url: string): string => {
 
 const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
   const embedUrl = getEmbedUrl(item.url);
+  const [currentImgIdx, setCurrentImgIdx] = useState(0);
   
   // Calculate column span based on size prop (default to 1)
   const sizeClass = (() => {
@@ -34,15 +35,72 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
     }
   })();
 
+  const handleNext = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (item.images) {
+      setCurrentImgIdx((prev) => (prev + 1) % item.images!.length);
+    }
+  };
+
+  const handlePrev = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    if (item.images) {
+      setCurrentImgIdx((prev) => (prev - 1 + item.images!.length) % item.images!.length);
+    }
+  };
+
+  const isCarousel = item.type === 'carousel' && item.images && item.images.length > 0;
+
   return (
     <div className={`bg-white/40 backdrop-blur-md rounded-2xl border border-white/50 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:scale-[1.01] group flex flex-col h-full ${sizeClass}`}>
       {/* Preview Area */}
       <div className="w-full aspect-video bg-slate-100 relative border-b border-white/30 overflow-hidden group-hover:border-teal-400/30 transition-colors">
         
+        {/* === IMAGE TYPE === */}
         {item.type === 'image' && (
           <img src={item.url} alt={item.title} className="w-full h-full object-cover" />
         )}
 
+        {/* === CAROUSEL TYPE === */}
+        {isCarousel && (
+          <div className="relative w-full h-full group/carousel">
+             <img 
+               src={item.images![currentImgIdx]} 
+               alt={`${item.title} ${currentImgIdx + 1}`} 
+               className="w-full h-full object-cover transition-opacity duration-500"
+             />
+             
+             {/* Controls */}
+             <div className="absolute inset-0 flex items-center justify-between p-2 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300">
+               <button 
+                 onClick={handlePrev}
+                 className="p-2 rounded-full bg-black/30 hover:bg-black/50 text-white backdrop-blur-sm border border-white/20 transition-all"
+               >
+                 <ChevronLeft size={24} />
+               </button>
+               <button 
+                 onClick={handleNext}
+                 className="p-2 rounded-full bg-black/30 hover:bg-black/50 text-white backdrop-blur-sm border border-white/20 transition-all"
+               >
+                 <ChevronRight size={24} />
+               </button>
+             </div>
+
+             {/* Indicators */}
+             <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5">
+               {item.images!.map((_, idx) => (
+                 <div 
+                   key={idx} 
+                   className={`h-1.5 rounded-full shadow-sm transition-all duration-300 ${idx === currentImgIdx ? 'bg-teal-400 w-6' : 'bg-white/60 w-1.5'}`} 
+                 />
+               ))}
+             </div>
+          </div>
+        )}
+
+        {/* === IFRAME TYPES (Doc, Video, Code) === */}
         {(item.type === 'document' || item.type === 'code' || item.type === 'video') && (
           <iframe 
             src={embedUrl} 
@@ -52,6 +110,7 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
           ></iframe>
         )}
 
+        {/* === AUDIO TYPE === */}
         {item.type === 'audio' && (
           <div className="w-full h-full flex flex-col items-center justify-center bg-teal-50/50 p-4">
              <div className="mb-4 p-4 rounded-full bg-white/60 shadow-lg text-teal-800">
@@ -66,8 +125,10 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
           </div>
         )}
         
-        {/* Hover Overlay for direct link */}
-        <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 transition-colors pointer-events-none" />
+        {/* Hover Overlay for direct link (Only if not carousel) */}
+        {!isCarousel && (
+           <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 transition-colors pointer-events-none" />
+        )}
       </div>
 
       {/* Info Area */}
@@ -85,15 +146,18 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
           {item.description}
         </p>
 
-        <a 
-          href={item.url} 
-          target="_blank" 
-          rel="noopener noreferrer"
-          className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/50 hover:bg-teal-500 hover:text-white text-teal-900 font-semibold transition-all duration-300 border border-white/60"
-        >
-          <span>Open Original</span>
-          <ExternalLink size={16} />
-        </a>
+        {/* Hide Open Original button for pure carousels if they don't have a main URL, or show if they do */}
+        {item.url && (
+          <a 
+            href={item.url} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/50 hover:bg-teal-500 hover:text-white text-teal-900 font-semibold transition-all duration-300 border border-white/60"
+          >
+            <span>Open Original</span>
+            <ExternalLink size={16} />
+          </a>
+        )}
       </div>
     </div>
   );
@@ -101,12 +165,28 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
 
 const GenericPage: React.FC<GenericPageProps> = ({ title, categoryKey, icon: Icon, content }) => {
   const items = portfolioContent[categoryKey] || [];
+  const config = categoryConfigs[categoryKey];
 
   return (
     <div className="max-w-7xl mx-auto w-full animate-fade-in">
       <BackButton />
       
-      {/* Header */}
+      {/* Dynamic Header Image */}
+      {config?.headerImage && (
+        <div className="relative w-full h-48 md:h-64 rounded-3xl overflow-hidden mb-8 border border-white/40 shadow-lg">
+          <img 
+            src={config.headerImage} 
+            alt={`${title} Header`} 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent pointer-events-none" />
+          <div className="absolute bottom-4 left-6 md:left-8 text-white drop-shadow-md">
+             {/* Optional: Put title over image if desired, but we keep the main title block below for consistency */}
+          </div>
+        </div>
+      )}
+      
+      {/* Title Block */}
       <div className="glass-panel p-8 md:p-10 rounded-3xl mb-10 flex flex-col md:flex-row items-center gap-8 text-center md:text-left">
         {Icon && (
           <div className="p-6 bg-gradient-to-br from-white/60 to-white/20 rounded-2xl text-teal-800 shadow-lg border border-white/50">
@@ -121,7 +201,7 @@ const GenericPage: React.FC<GenericPageProps> = ({ title, categoryKey, icon: Ico
         </div>
       </div>
       
-      {/* Content Grid - Updated to lg:grid-cols-4 for finer sizing control */}
+      {/* Content Grid */}
       {items.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
            {items.map((item) => (
