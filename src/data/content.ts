@@ -1,3 +1,4 @@
+
 export interface ProjectItem {
   id: string;
   title: string;
@@ -11,7 +12,7 @@ export interface ProjectItem {
 // Configuration for specific category pages (e.g. Header Images)
 export const categoryConfigs: Record<string, { headerImage?: string; description?: string }> = {
   'fmp-hub': {
-    headerImage: 'https://github.com/BrianKoprowski/Portfolio/blob/main/FMP/rounded%20img%20of%20ad.PNG?raw=true', // HEADER IMAGE FOR MAIN FMP PAGE
+    headerImage: 'https://picsum.photos/844/352', // HEADER IMAGE FOR MAIN FMP PAGE
   },
   'fmp-art': {
     // headerImage removed from here, moved to fmp-hub
