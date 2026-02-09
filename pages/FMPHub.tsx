@@ -14,7 +14,10 @@ const FMPHub: React.FC = () => {
 
       {/* Dynamic Header Image */}
       {config?.headerImage && (
-        <div className="relative w-full h-48 md:h-64 rounded-3xl overflow-hidden mb-8 border border-white/40 shadow-lg">
+        <div 
+          className="relative w-full max-w-[844px] mx-auto rounded-3xl overflow-hidden mb-8 border border-white/40 shadow-lg"
+          style={{ aspectRatio: '844/357' }}
+        >
           <img 
             src={config.headerImage} 
             alt="FMP Header" 
