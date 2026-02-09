@@ -9,17 +9,16 @@ const FMPHub: React.FC = () => {
   const config = categoryConfigs['fmp-hub'];
 
   return (
-    <div className="max-w-[844px] mx-auto w-full animate-fade-in px-4 pb-20">
+    <div className="max-w-7xl mx-auto w-full animate-fade-in px-4 pb-20">
       <BackButton />
 
-      {/* Header Container - Width matched to 844px max */}
-      <div className="flex flex-col items-center mb-8">
+      {/* Header Container - Full width of container */}
+      <div className="w-full mb-8">
         
         {/* Dynamic Header Image */}
         {config?.headerImage && (
           <div 
-            className="relative w-full rounded-3xl overflow-hidden border-4 border-white/30 shadow-2xl shadow-teal-900/10 group"
-            style={{ aspectRatio: '844/357' }}
+            className="relative w-full h-48 md:h-[357px] rounded-3xl overflow-hidden border-4 border-white/30 shadow-2xl shadow-teal-900/10 group"
           >
             <img 
               src={config.headerImage} 
@@ -32,14 +31,13 @@ const FMPHub: React.FC = () => {
       </div>
 
       {/* Dashboard Grid Layout */}
-      {/* "Stand up landscape" interpreted as a vertical sidebar (Standing up) alongside the main content */}
-      <div className="flex flex-col md:flex-row gap-6 items-stretch">
+      <div className="flex flex-col lg:flex-row gap-6 items-stretch">
         
         {/* Left Column: Title Block + 2x2 Grid */}
         <div className="flex-1 flex flex-col gap-6">
           
           {/* Title Block */}
-          <div className="glass-panel p-6 rounded-3xl relative overflow-hidden flex flex-col justify-center min-h-[160px]">
+          <div className="glass-panel p-8 rounded-3xl relative overflow-hidden flex flex-col justify-center min-h-[160px]">
              {/* Decor */}
              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-teal-400 to-transparent opacity-50"></div>
              
@@ -56,7 +54,7 @@ const FMPHub: React.FC = () => {
           </div>
 
           {/* Navigation Grid (Research, Art, Timeline, Dev) */}
-          <div className="grid grid-cols-2 gap-6 flex-1">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 flex-1">
             <GlassCard 
               title="Research" 
               icon={BookOpen} 
@@ -85,15 +83,15 @@ const FMPHub: React.FC = () => {
         </div>
 
         {/* Right Column: GDD (Standing Tall) */}
-        {/* This places the GDD "along" Development, Art, and Main Title */}
-        <div className="w-full md:w-[260px] flex-shrink-0 flex">
+        {/* Fixed width sidebar on large screens, full width on smaller */}
+        <div className="w-full lg:w-[320px] flex-shrink-0 flex">
           <GlassCard 
             title="GDD" 
             icon={FileText} 
             description="Master Game Design Document. The complete project blueprint."
             to="/fmp/gdd"
             variant="highlight"
-            className="w-full h-full min-h-[220px] border-teal-400/40 flex flex-col justify-center"
+            className="w-full h-full min-h-[220px] border-teal-400/40 flex flex-col justify-center text-center p-8"
           />
         </div>
 
