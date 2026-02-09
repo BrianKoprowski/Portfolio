@@ -12,13 +12,13 @@ const FMPHub: React.FC = () => {
     <div className="max-w-7xl mx-auto w-full animate-fade-in px-4 pb-20">
       <BackButton />
 
-      {/* Header Container - Full width of container */}
-      <div className="w-full mb-8">
+      {/* Header Container - Width constrained to 844px, centered */}
+      <div className="w-full mb-8 flex justify-center">
         
         {/* Dynamic Header Image */}
         {config?.headerImage && (
           <div 
-            className="relative w-full h-48 md:h-[357px] rounded-3xl overflow-hidden border-4 border-white/30 shadow-2xl shadow-teal-900/10 group"
+            className="relative w-full max-w-[844px] h-48 md:h-[352px] rounded-3xl overflow-hidden border-4 border-white/30 shadow-2xl shadow-teal-900/10 group"
           >
             <img 
               src={config.headerImage} 
