@@ -5,7 +5,7 @@ import Home from './pages/Home';
 import GenericPage from './pages/GenericPage';
 import ArtHub from './pages/ArtHub';
 import FMPHub from './pages/FMPHub';
-import { Mic, BookOpen, Code, Box, Image as ImageIcon, FileText } from 'lucide-react';
+import { Mic, BookOpen, Code, Box, Image as ImageIcon, FileText, Calendar } from 'lucide-react';
 
 const App: React.FC = () => {
   return (
@@ -49,9 +49,10 @@ const App: React.FC = () => {
             path="/fmp/art" 
             element={<GenericPage title="FMP Art" categoryKey="fmp-art" icon={ImageIcon} content="Concept art, final textures, and visual development for the FMP." />} 
           />
+          {/* Changed FMP Audio to FMP Timeline */}
           <Route 
-            path="/fmp/audio" 
-            element={<GenericPage title="FMP Audio" categoryKey="fmp-audio" icon={Mic} content="Soundtrack, foley, and voice acting for the FMP." />} 
+            path="/fmp/timeline" 
+            element={<GenericPage title="Timeline" categoryKey="fmp-timeline" icon={Calendar} content="Project timeline, milestones, and schedule tracking." />} 
           />
           <Route 
             path="/fmp/dev" 
