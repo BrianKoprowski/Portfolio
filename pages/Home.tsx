@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mic, Palette, BookOpen, Code, FileText, Gamepad2, ArrowRight } from 'lucide-react';
+import { Mic, Palette, BookOpen, Code, FileText, Gamepad2, ArrowRight, Calendar } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
 
 const Home: React.FC = () => {
@@ -15,7 +15,7 @@ const Home: React.FC = () => {
                 If you have a local file, put it in a public folder and reference it.
              */}
             <img 
-              src="https://github.com/BrianKoprowski/Portfolio/blob/main/components/my_logo.png?raw=true" 
+              src="https://raw.githubusercontent.com/BrianKoprowski/Portfolio/refs/heads/main/components/my_logo.png" 
               alt="My Logo" 
               className="w-full h-full object-cover"
             />
@@ -27,7 +27,8 @@ const Home: React.FC = () => {
             Creative Portfolio
           </h1>
           <p className="text-lg text-slate-700 leading-relaxed font-medium">
-            Welcome to my portfolio. I am Brian Koprowski, student at Chichester College. This Portfolio is a presentation of my work and projects. On this page you can explore my work files, research, and my Final Major Project at HSDC.
+            Welcome to my digital space. I am a passionate creator bridging the gap between Audio, Art, and Development. 
+            Here you can explore my works, research, and my Final Major Project.
           </p>
         </div>
       </section>
@@ -49,7 +50,7 @@ const Home: React.FC = () => {
         <GlassCard 
           title="Research" 
           icon={BookOpen} 
-          description="Coursework & creative studies"
+          description="Academic & creative studies"
           to="/research"
         />
         <GlassCard 
@@ -95,7 +96,7 @@ const Home: React.FC = () => {
           <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-3 opacity-80 relative z-10">
             <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-white/40 border border-white/40 px-3 py-1.5 rounded-full text-slate-700 shadow-sm backdrop-blur-sm"><BookOpen size={14}/> Research</span>
             <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-white/40 border border-white/40 px-3 py-1.5 rounded-full text-slate-700 shadow-sm backdrop-blur-sm"><Palette size={14}/> Art</span>
-            <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-white/40 border border-white/40 px-3 py-1.5 rounded-full text-slate-700 shadow-sm backdrop-blur-sm"><Mic size={14}/> Audio</span>
+            <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-white/40 border border-white/40 px-3 py-1.5 rounded-full text-slate-700 shadow-sm backdrop-blur-sm"><Calendar size={14}/> Timeline</span>
             <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-white/40 border border-white/40 px-3 py-1.5 rounded-full text-slate-700 shadow-sm backdrop-blur-sm"><Code size={14}/> Dev</span>
             <span className="flex items-center gap-2 text-xs font-bold uppercase tracking-wider bg-white/40 border border-white/40 px-3 py-1.5 rounded-full text-slate-700 shadow-sm backdrop-blur-sm"><FileText size={14}/> GDD</span>
           </div>
