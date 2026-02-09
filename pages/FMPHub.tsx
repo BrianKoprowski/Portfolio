@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mic, Palette, BookOpen, Code, FileText, Layers } from 'lucide-react';
+import { Palette, BookOpen, Code, FileText, Layers, Calendar } from 'lucide-react';
 import GlassCard from '../components/GlassCard';
 import BackButton from '../components/BackButton';
 
@@ -32,10 +32,10 @@ const FMPHub: React.FC = () => {
           to="/fmp/art"
         />
         <GlassCard 
-          title="FMP Audio" 
-          icon={Mic} 
-          description="Soundscapes & SFX"
-          to="/fmp/audio"
+          title="Timeline" 
+          icon={Calendar} 
+          description="Schedule & Milestones"
+          to="/fmp/timeline"
         />
         <GlassCard 
           title="FMP Development" 
