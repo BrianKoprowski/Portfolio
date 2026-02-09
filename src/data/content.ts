@@ -10,11 +10,14 @@ export interface ProjectItem {
 
 // Configuration for specific category pages (e.g. Header Images)
 export const categoryConfigs: Record<string, { headerImage?: string; description?: string }> = {
+  'fmp-hub': {
+    headerImage: 'https://picsum.photos/1200/400', // HEADER IMAGE FOR MAIN FMP PAGE
+  },
   'fmp-art': {
-    headerImage: 'https://picsum.photos/1200/400', // EXAMPLE HEADER IMAGE FOR FMP ART
+    // headerImage removed from here, moved to fmp-hub
   },
   'fmp-timeline': {
-    // headerImage: '...' // You can add headers for other pages here too
+    // headerImage: '...' 
   }
 };
 
@@ -109,7 +112,16 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
   // =========================================================================
   // FMP SPECIFIC CONTENT
   // =========================================================================
-  'fmp-research': [],
+  'fmp-research': [
+    {
+      id: 'fr1',
+      title: 'FMP Research Document',
+      description: 'Template: Paste your Google Drive link here.',
+      type: 'document',
+      url: 'https://drive.google.com/file/d/1U9y-Wn.../view?usp=sharing',
+      size: 4
+    }
+  ],
   
   'fmp-art': [
     {
@@ -117,8 +129,8 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
       title: 'Environment Concept Art',
       description: 'A gallery of environment concepts showing different times of day.',
       type: 'carousel',
-      url: '', // Not used for carousel view, but good to have a fallback link
-      size: 4, // Full width for the carousel
+      url: '', 
+      size: 4, 
       images: [
         'https://picsum.photos/800/450?random=1',
         'https://picsum.photos/800/450?random=2',
@@ -127,10 +139,27 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
         'https://picsum.photos/800/450?random=5',
         'https://picsum.photos/800/450?random=6'
       ]
+    },
+    {
+      id: 'fa2',
+      title: 'Art Bible / Style Guide',
+      description: 'Template: Document outlining the visual style.',
+      type: 'document',
+      url: 'https://drive.google.com/file/d/1U9y-Wn.../view?usp=sharing',
+      size: 4
     }
   ],
 
-  'fmp-dev': [],
+  'fmp-dev': [
+    {
+      id: 'fd1',
+      title: 'FMP Tech Log',
+      description: 'Template: Development log and technical documentation.',
+      type: 'document',
+      url: 'https://drive.google.com/file/d/1U9y-Wn.../view?usp=sharing',
+      size: 4
+    }
+  ],
   
   'fmp-timeline': [
     {
