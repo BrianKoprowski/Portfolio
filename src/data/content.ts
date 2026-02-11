@@ -29,20 +29,48 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
   'audio': [
     {
       id: 'a1',
-      title: 'Atmospheric Soundscape',
-      description: 'Ambient background noise for the forest level.',
-      type: 'audio',
+      title: 'Audio Work-Slides',
+      description: '',
+      type: 'document',
       // PASTE GOOGLE DRIVE LINK HERE
-      url: 'https://drive.google.com/file/d/1U9y-Wn.../view?usp=sharing',
+      url: 'https://docs.google.com/presentation/d/1KtFs6oJ1jH73O6QVrddHlDAqRKLJGlh9/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true',
+      size: 2
+    },
+     {
+      id: 'a2',
+      title: 'Audio Remake',
+      description: 'Minecraft audio remake.',
+      type: 'document',
+      // PASTE GOOGLE DRIVE LINK HERE
+      url: 'https://docs.google.com/presentation/d/1qEagNYPG9-aBqtOFMd6NRSpHzRFhBvIj/edit?usp=drive_link&ouid=104221513729059640406&rtpof=true&sd=true',
       size: 2
     },
     {
-      id: 'a2',
-      title: 'Character Voice Lines',
-      description: 'Dialogue snippets for the main protagonist.',
+      id: 'a3',
+      title: 'Original Gameplay',
+      description: 'Minecraft Clip.',
       type: 'audio',
-      url: 'https://drive.google.com/file/d/1U9y-Wn.../view?usp=sharing',
+      // PASTE GOOGLE DRIVE LINK HERE
+      url: 'https://drive.google.com/file/d/17lfQ3O6ybXrn3ouxm1EFndOqQsuY9byT/view?usp=sharing',
       size: 1
+    },
+    {
+      id: 'a4',
+      title: 'Gameplay audio Remake',
+      description: 'Minecraft audio remake.',
+      type: 'audio',
+      // PASTE GOOGLE DRIVE LINK HERE
+      url: 'https://drive.google.com/file/d/1Iluv0DgeUNlDctRIUjFbMDSVlTZujpQy/view?usp=sharing',
+      size: 1
+    },
+    {
+      id: 'a5',
+      title: 'Audio Replacement Document',
+      description: 'Documentation of Audio replacement.',
+      type: 'document',
+      // PASTE GOOGLE DRIVE LINK HERE
+      url: 'https://docs.google.com/presentation/d/1qEagNYPG9-aBqtOFMd6NRSpHzRFhBvIj/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true',
+      size: 3
     }
   ],
 
