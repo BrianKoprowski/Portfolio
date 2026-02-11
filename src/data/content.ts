@@ -49,19 +49,19 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
       id: 'a3',
       title: 'Original Gameplay',
       description: 'Minecraft Clip.',
-      type: 'audio',
+      type: 'video',
       // PASTE GOOGLE DRIVE LINK HERE
       url: 'https://drive.google.com/file/d/17lfQ3O6ybXrn3ouxm1EFndOqQsuY9byT/view?usp=sharing',
-      size: 1
+      size: 2
     },
     {
       id: 'a4',
       title: 'Gameplay audio Remake',
       description: 'Minecraft audio remake.',
-      type: 'audio',
+      type: 'video',
       // PASTE GOOGLE DRIVE LINK HERE
       url: 'https://drive.google.com/file/d/1Iluv0DgeUNlDctRIUjFbMDSVlTZujpQy/view?usp=sharing',
-      size: 1
+      size: 2
     },
     {
       id: 'a5',
