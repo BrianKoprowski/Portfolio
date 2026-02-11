@@ -104,7 +104,7 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
       id: 'd1',
       title: 'GDD',
       description: 'My first game GDD file.',
-      type: 'Documentation',
+      type: 'document',
       url: 'https://docs.google.com/document/d/1dpC2SShGCabKMYh6J3JS_P3UQjvNBVAz/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true', // Or a Drive link to a PDF of code
       size: 4
     },
@@ -112,7 +112,7 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
       id: 'd1',
       title: 'Game files',
       description: 'My first Game.',
-      type: 'Game files',
+      type: 'code',
       url: 'https://drive.google.com/drive/folders/1UZkDd43JaAJsH6YPPcjoIcCLW2wZBCNB?usp=sharing', // Or a Drive link to a PDF of code
       size: 3
     },
@@ -120,7 +120,7 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
       id: 'd1',
       title: 'Exhibition document',
       description: 'Self skills review at first game development stage.',
-      type: 'Self Review',
+      type: 'document',
       url: 'https://docs.google.com/document/d/1tNHUWtEjo0H_otNmhX_7Qwq2EHBCUYB5/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true', // Or a Drive link to a PDF of code
       size: 3
     }
