@@ -102,10 +102,26 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
   'dev': [
     {
       id: 'd1',
-      title: 'Movement Script',
-      description: 'C# logic for player controller.',
-      type: 'code',
-      url: 'https://github.com/yourusername/repo', // Or a Drive link to a PDF of code
+      title: 'GDD',
+      description: 'My first game GDD file.',
+      type: 'Documentation',
+      url: 'https://docs.google.com/document/d/1dpC2SShGCabKMYh6J3JS_P3UQjvNBVAz/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true', // Or a Drive link to a PDF of code
+      size: 4
+    },
+     {
+      id: 'd1',
+      title: 'Game files',
+      description: 'My first Game.',
+      type: 'Game files',
+      url: 'https://drive.google.com/drive/folders/1UZkDd43JaAJsH6YPPcjoIcCLW2wZBCNB?usp=sharing', // Or a Drive link to a PDF of code
+      size: 3
+    },
+     {
+      id: 'd1',
+      title: 'Exhibition document',
+      description: 'Self skills review at first game development stage.',
+      type: 'Self Review',
+      url: 'https://docs.google.com/document/d/1tNHUWtEjo0H_otNmhX_7Qwq2EHBCUYB5/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true', // Or a Drive link to a PDF of code
       size: 3
     }
   ],
