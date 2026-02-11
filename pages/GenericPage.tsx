@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LucideIcon, ExternalLink, FileText, Music, ChevronLeft, ChevronRight } from 'lucide-react';
+import { LucideIcon, ExternalLink, FileText, Music, ChevronLeft, ChevronRight, Code as CodeIcon, PlayCircle } from 'lucide-react';
 import BackButton from '../components/BackButton';
 import { portfolioContent, ProjectItem, categoryConfigs } from '../src/data/content';
 
@@ -18,6 +18,11 @@ const getEmbedUrl = (url: string): string => {
     // Replace /view with /preview to get the embeddable version
     return url.replace(/\/view.*/, '/preview').replace(/\/edit.*/, '/preview');
   }
+  // Basic YouTube Embed support
+  if (url.includes('youtube.com') || url.includes('youtu.be')) {
+    const videoId = url.split('v=')[1]?.split('&')[0] || url.split('/').pop();
+    if (videoId) return `https://www.youtube.com/embed/${videoId}`;
+  }
   return url;
 };
 
@@ -25,15 +30,23 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
   const embedUrl = getEmbedUrl(item.url);
   const [currentImgIdx, setCurrentImgIdx] = useState(0);
   
-  // Calculate column span based on size prop (default to 1)
-  const sizeClass = (() => {
+  // Calculate width style based on size prop
+  // Flexbox layout logic:
+  // Size 4: Full Width (100%)
+  // Size 3: Big & Centered (85%)
+  // Size 2: Medium (50% - gap) -> Fits 2 per row
+  // Size 1: Small (40% - gap) -> Fits 2 per row, centered, slightly smaller than medium
+  const getWidthClass = () => {
     switch (item.size) {
-      case 2: return "col-span-1 md:col-span-2";
-      case 3: return "col-span-1 md:col-span-2 lg:col-span-3";
-      case 4: return "col-span-1 md:col-span-2 lg:col-span-4";
-      default: return "col-span-1"; // size 1
+      case 4: return "w-full";
+      case 3: return "w-full md:w-[85%]";
+      case 2: return "w-full md:w-[calc(50%-1.5rem)]"; // 50% minus half gap
+      case 1: return "w-full md:w-[calc(40%-1.5rem)]"; // 40% minus half gap
+      default: return "w-full md:w-[calc(50%-1.5rem)]";
     }
-  })();
+  };
+
+  const widthClass = getWidthClass();
 
   const handleNext = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -53,81 +66,127 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
 
   const isCarousel = item.type === 'carousel' && item.images && item.images.length > 0;
 
-  return (
-    <div className={`bg-white/40 backdrop-blur-md rounded-2xl border border-white/50 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:scale-[1.01] group flex flex-col h-full ${sizeClass}`}>
-      {/* Preview Area */}
-      <div className="w-full aspect-video bg-slate-100 relative border-b border-white/30 overflow-hidden group-hover:border-teal-400/30 transition-colors">
-        
-        {/* === IMAGE TYPE === */}
-        {item.type === 'image' && (
-          <img src={item.url} alt={item.title} className="w-full h-full object-cover" />
-        )}
+  // Determine which preview renderer to use
+  const renderPreview = () => {
+    // 1. IMAGE & CAROUSEL
+    if (item.type === 'image' || isCarousel) {
+      return (
+        <div className="relative w-full h-full group/carousel">
+          <img 
+            src={isCarousel ? item.images![currentImgIdx] : item.url} 
+            alt={item.title} 
+            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          
+          {isCarousel && (
+            <>
+              {/* Controls */}
+              <div className="absolute inset-0 flex items-center justify-between p-2 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 pointer-events-none">
+                <button 
+                  onClick={handlePrev}
+                  className="pointer-events-auto p-2 rounded-full bg-black/30 hover:bg-black/50 text-white backdrop-blur-sm border border-white/20 transition-all"
+                >
+                  <ChevronLeft size={24} />
+                </button>
+                <button 
+                  onClick={handleNext}
+                  className="pointer-events-auto p-2 rounded-full bg-black/30 hover:bg-black/50 text-white backdrop-blur-sm border border-white/20 transition-all"
+                >
+                  <ChevronRight size={24} />
+                </button>
+              </div>
+              {/* Indicators */}
+              <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5 z-10">
+                {item.images!.map((_, idx) => (
+                  <div 
+                    key={idx} 
+                    className={`h-1.5 rounded-full shadow-sm transition-all duration-300 ${idx === currentImgIdx ? 'bg-teal-400 w-6' : 'bg-white/60 w-1.5'}`} 
+                  />
+                ))}
+              </div>
+            </>
+          )}
+        </div>
+      );
+    }
 
-        {/* === CAROUSEL TYPE === */}
-        {isCarousel && (
-          <div className="relative w-full h-full group/carousel">
-             <img 
-               src={item.images![currentImgIdx]} 
-               alt={`${item.title} ${currentImgIdx + 1}`} 
-               className="w-full h-full object-cover transition-opacity duration-500"
-             />
-             
-             {/* Controls */}
-             <div className="absolute inset-0 flex items-center justify-between p-2 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300">
-               <button 
-                 onClick={handlePrev}
-                 className="p-2 rounded-full bg-black/30 hover:bg-black/50 text-white backdrop-blur-sm border border-white/20 transition-all"
-               >
-                 <ChevronLeft size={24} />
-               </button>
-               <button 
-                 onClick={handleNext}
-                 className="p-2 rounded-full bg-black/30 hover:bg-black/50 text-white backdrop-blur-sm border border-white/20 transition-all"
-               >
-                 <ChevronRight size={24} />
-               </button>
-             </div>
-
-             {/* Indicators */}
-             <div className="absolute bottom-2 left-0 right-0 flex justify-center gap-1.5">
-               {item.images!.map((_, idx) => (
-                 <div 
-                   key={idx} 
-                   className={`h-1.5 rounded-full shadow-sm transition-all duration-300 ${idx === currentImgIdx ? 'bg-teal-400 w-6' : 'bg-white/60 w-1.5'}`} 
-                 />
-               ))}
-             </div>
+    // 2. AUDIO
+    if (item.type === 'audio') {
+      return (
+        <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-teal-50 to-emerald-50/50 p-4 relative overflow-hidden">
+          {/* Decorative Waves */}
+          <div className="absolute inset-0 opacity-10 flex items-center justify-center gap-1">
+             {[...Array(10)].map((_, i) => (
+               <div key={i} className="w-2 bg-teal-900 rounded-full animate-pulse" style={{ height: `${Math.random() * 60 + 20}%`, animationDelay: `${i * 0.1}s` }} />
+             ))}
           </div>
-        )}
+          
+          <div className="relative z-10 mb-4 p-4 rounded-full bg-white/60 shadow-lg text-teal-800 border border-white/50">
+            <Music size={32} />
+          </div>
+          {/* Google Drive Audio Embed */}
+          <div className="relative z-10 w-full max-w-[250px]">
+            <iframe 
+              src={embedUrl} 
+              className="w-full h-12 border-none rounded-lg overflow-hidden shadow-sm" 
+              title={item.title}
+            ></iframe>
+          </div>
+        </div>
+      );
+    }
 
-        {/* === IFRAME TYPES (Doc, Video, Code) === */}
-        {(item.type === 'document' || item.type === 'code' || item.type === 'video') && (
+    // 3. CODE (Custom Preview for GitHub etc)
+    if (item.type === 'code') {
+      return (
+        <div className="w-full h-full bg-[#1e293b] flex flex-col items-center justify-center relative overflow-hidden group-hover:bg-[#0f172a] transition-colors">
+           {/* Code Editor decorations */}
+           <div className="absolute top-0 left-0 right-0 h-6 bg-white/10 flex items-center px-3 gap-1.5 border-b border-white/5">
+             <div className="w-2.5 h-2.5 rounded-full bg-red-500/80"></div>
+             <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80"></div>
+             <div className="w-2.5 h-2.5 rounded-full bg-green-500/80"></div>
+           </div>
+           
+           <div className="text-center p-6 pt-10">
+             <div className="inline-block p-4 rounded-2xl bg-white/5 text-teal-400 mb-3 border border-white/10">
+               <CodeIcon size={40} />
+             </div>
+             <h4 className="text-slate-300 font-mono text-sm font-semibold">Source Repository</h4>
+             <p className="text-slate-500 text-xs mt-1">View code on GitHub</p>
+           </div>
+        </div>
+      );
+    }
+
+    // 4. VIDEO & DOCUMENT (Iframes)
+    return (
+      <div className="w-full h-full bg-slate-100 relative">
+        {item.type === 'video' && !embedUrl.includes('youtube') && !embedUrl.includes('drive') ? (
+           // Fallback for non-embeddable videos
+           <div className="w-full h-full flex flex-col items-center justify-center bg-slate-900 text-white">
+             <PlayCircle size={48} className="opacity-80" />
+           </div>
+        ) : (
           <iframe 
             src={embedUrl} 
             className="w-full h-full" 
-            allow="autoplay"
+            allow="autoplay; encrypted-media; picture-in-picture"
             title={item.title}
           ></iframe>
         )}
+      </div>
+    );
+  };
 
-        {/* === AUDIO TYPE === */}
-        {item.type === 'audio' && (
-          <div className="w-full h-full flex flex-col items-center justify-center bg-teal-50/50 p-4">
-             <div className="mb-4 p-4 rounded-full bg-white/60 shadow-lg text-teal-800">
-               <Music size={32} />
-             </div>
-             {/* Google Drive Audio Embed */}
-             <iframe 
-                src={embedUrl} 
-                className="w-full h-16 border-none" 
-                title={item.title}
-             ></iframe>
-          </div>
-        )}
+  return (
+    <div className={`bg-white/40 backdrop-blur-md rounded-2xl border border-white/50 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:scale-[1.01] group flex flex-col ${widthClass} mb-0`}>
+      {/* Preview Area */}
+      <div className="w-full aspect-video bg-slate-50 relative border-b border-white/30 overflow-hidden group-hover:border-teal-400/30 transition-colors">
+        {renderPreview()}
         
-        {/* Hover Overlay for direct link (Only if not carousel) */}
+        {/* Hover Overlay for direct link (Only if not carousel or active iframe) */}
         {!isCarousel && (
-           <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/10 transition-colors pointer-events-none" />
+           <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors pointer-events-none" />
         )}
       </div>
 
@@ -137,24 +196,24 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
           <h3 className="text-xl font-bold text-slate-800 leading-tight group-hover:text-teal-900 transition-colors">
             {item.title}
           </h3>
-          <span className="text-xs font-bold uppercase tracking-wider text-slate-500 bg-white/50 px-2 py-1 rounded-md">
+          <span className="text-[10px] font-bold uppercase tracking-wider text-teal-700 bg-teal-500/10 border border-teal-500/20 px-2 py-1 rounded-full">
             {item.type}
           </span>
         </div>
         
-        <p className="text-slate-600 text-sm mb-6 flex-1">
+        <p className="text-slate-600 text-sm mb-6 flex-1 leading-relaxed">
           {item.description}
         </p>
 
-        {/* Hide Open Original button for pure carousels if they don't have a main URL, or show if they do */}
+        {/* Action Button */}
         {item.url && (
           <a 
             href={item.url} 
             target="_blank" 
             rel="noopener noreferrer"
-            className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/50 hover:bg-teal-500 hover:text-white text-teal-900 font-semibold transition-all duration-300 border border-white/60"
+            className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/60 hover:bg-teal-500 hover:text-white text-teal-900 font-semibold transition-all duration-300 border border-white/60 shadow-sm hover:shadow-teal-500/20"
           >
-            <span>Open Original</span>
+            <span>{item.type === 'code' ? 'View Code' : item.type === 'video' ? 'Watch Video' : item.type === 'audio' ? 'Listen' : 'Open File'}</span>
             <ExternalLink size={16} />
           </a>
         )}
@@ -180,9 +239,6 @@ const GenericPage: React.FC<GenericPageProps> = ({ title, categoryKey, icon: Ico
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/40 to-transparent pointer-events-none" />
-          <div className="absolute bottom-4 left-6 md:left-8 text-white drop-shadow-md">
-             {/* Optional: Put title over image if desired, but we keep the main title block below for consistency */}
-          </div>
         </div>
       )}
       
@@ -201,9 +257,9 @@ const GenericPage: React.FC<GenericPageProps> = ({ title, categoryKey, icon: Ico
         </div>
       </div>
       
-      {/* Content Grid */}
+      {/* Content Flex Grid */}
       {items.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="flex flex-wrap justify-center gap-6">
            {items.map((item) => (
              <ContentCard key={item.id} item={item} />
            ))}
