@@ -6,7 +6,7 @@ export interface ProjectItem {
   type: 'image' | 'document' | 'audio' | 'video' | 'code' | 'carousel';
   url: string; // Main link (or fallback for carousel)
   images?: string[]; // Array of image URLs for the carousel type
-  size?: 1 | 2 | 3 | 4; // 1 = Smallest, 4 = Full Width
+  size?: 1 | 2 | 3 | 4; // 1 = Smallest (40%), 2 = Medium (50%), 3 = Big Centered (85%), 4 = Full Width (100%)
 }
 
 // Configuration for specific category pages (e.g. Header Images)
