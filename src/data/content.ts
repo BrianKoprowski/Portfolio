@@ -114,7 +114,7 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
       description: 'My first Game.',
       type: 'code',
       url: 'https://drive.google.com/drive/folders/1UZkDd43JaAJsH6YPPcjoIcCLW2wZBCNB?usp=sharing', 
-      size: 2
+      size: 3
     },
     {
       id: 'd3',
@@ -122,7 +122,7 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
       description: 'Self skills review at first game development stage.',
       type: 'document',
       url: 'https://docs.google.com/document/d/1tNHUWtEjo0H_otNmhX_7Qwq2EHBCUYB5/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true', 
-      size: 2
+      size: 3
     }
   ],
 
