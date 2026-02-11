@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LucideIcon, ExternalLink, FileText, Music, ChevronLeft, ChevronRight, Code as CodeIcon, PlayCircle } from 'lucide-react';
+import { LucideIcon, ExternalLink, FileText, Music, ChevronLeft, ChevronRight, Code as CodeIcon, PlayCircle, FolderOpen } from 'lucide-react';
 import BackButton from '../components/BackButton';
 import { portfolioContent, ProjectItem, categoryConfigs } from '../src/data/content';
 
@@ -13,7 +13,17 @@ interface GenericPageProps {
 // Helper to convert Drive Share Links to Embed Links
 const getEmbedUrl = (url: string): string => {
   if (!url) return '';
-  // Check if it is a Google Drive Link
+
+  // Google Drive Folder
+  // Detects .../folders/FOLDER_ID and converts to embedded view
+  if (url.includes('drive.google.com') && url.includes('folders')) {
+    const match = url.match(/folders\/([a-zA-Z0-9_-]+)/);
+    if (match && match[1]) {
+       return `https://drive.google.com/embeddedfolderview?id=${match[1]}#list`;
+    }
+  }
+
+  // Check if it is a Google Drive Link (File)
   if (url.includes('drive.google.com')) {
     // Replace /view with /preview to get the embeddable version
     return url.replace(/\/view.*/, '/preview').replace(/\/edit.*/, '/preview');
@@ -65,6 +75,10 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
   };
 
   const isCarousel = item.type === 'carousel' && item.images && item.images.length > 0;
+  
+  // Explicitly check for Drive Folder, regardless of what the user set the type to.
+  // This allows type: 'code' to behave like a folder if the URL is a folder.
+  const isDriveFolder = item.url.includes('drive.google.com') && item.url.includes('folders');
 
   // Determine which preview renderer to use
   const renderPreview = () => {
@@ -136,7 +150,21 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
       );
     }
 
-    // 3. CODE (Custom Preview for GitHub etc)
+    // 3. FOLDER (Explicit type OR Detected Drive Folder)
+    // If it is a drive folder, we want the iframe preview regardless of whether it's tagged as 'code' or 'folder'
+    if (item.type === 'folder' || isDriveFolder) {
+      return (
+        <div className="w-full h-full bg-white relative">
+           <iframe 
+              src={embedUrl} 
+              className="w-full h-full border-none" 
+              title={item.title}
+           ></iframe>
+        </div>
+      );
+    }
+
+    // 4. CODE (Only if NOT a drive folder)
     if (item.type === 'code') {
       return (
         <div className="w-full h-full bg-[#1e293b] flex flex-col items-center justify-center relative overflow-hidden group-hover:bg-[#0f172a] transition-colors">
@@ -158,7 +186,7 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
       );
     }
 
-    // 4. VIDEO & DOCUMENT (Iframes)
+    // 5. GENERIC (Video/Doc)
     return (
       <div className="w-full h-full bg-slate-100 relative">
         {item.type === 'video' && !embedUrl.includes('youtube') && !embedUrl.includes('drive') ? (
@@ -178,6 +206,14 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
     );
   };
 
+  const getButtonText = () => {
+    if (item.type === 'code') return 'View Code';
+    if (item.type === 'video') return 'Watch Video';
+    if (item.type === 'audio') return 'Listen';
+    if (item.type === 'folder' || isDriveFolder) return 'Open Folder';
+    return 'Open File';
+  };
+
   return (
     <div className={`bg-white/40 backdrop-blur-md rounded-2xl border border-white/50 overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 hover:scale-[1.01] group flex flex-col ${widthClass} mb-0`}>
       {/* Preview Area */}
@@ -185,7 +221,7 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
         {renderPreview()}
         
         {/* Hover Overlay for direct link (Only if not carousel or active iframe) */}
-        {!isCarousel && (
+        {!isCarousel && !isDriveFolder && (
            <div className="absolute inset-0 bg-slate-900/0 group-hover:bg-slate-900/5 transition-colors pointer-events-none" />
         )}
       </div>
@@ -213,7 +249,7 @@ const ContentCard: React.FC<{ item: ProjectItem }> = ({ item }) => {
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-white/60 hover:bg-teal-500 hover:text-white text-teal-900 font-semibold transition-all duration-300 border border-white/60 shadow-sm hover:shadow-teal-500/20"
           >
-            <span>{item.type === 'code' ? 'View Code' : item.type === 'video' ? 'Watch Video' : item.type === 'audio' ? 'Listen' : 'Open File'}</span>
+            <span>{getButtonText()}</span>
             <ExternalLink size={16} />
           </a>
         )}
