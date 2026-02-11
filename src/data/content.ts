@@ -3,7 +3,7 @@ export interface ProjectItem {
   id: string;
   title: string;
   description: string;
-  type: 'image' | 'document' | 'audio' | 'video' | 'code' | 'carousel';
+  type: 'image' | 'document' | 'audio' | 'video' | 'code' | 'carousel' | 'folder';
   url: string; // Main link (or fallback for carousel)
   images?: string[]; // Array of image URLs for the carousel type
   size?: 1 | 2 | 3 | 4; // 1 = Smallest (40%), 2 = Medium (50%), 3 = Big Centered (85%), 4 = Full Width (100%)
@@ -105,24 +105,24 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
       title: 'GDD',
       description: 'My first game GDD file.',
       type: 'document',
-      url: 'https://docs.google.com/document/d/1dpC2SShGCabKMYh6J3JS_P3UQjvNBVAz/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true', // Or a Drive link to a PDF of code
+      url: 'https://docs.google.com/document/d/1dpC2SShGCabKMYh6J3JS_P3UQjvNBVAz/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true', 
       size: 4
     },
-     {
-      id: 'd1',
+    {
+      id: 'd2',
       title: 'Game files',
       description: 'My first Game.',
       type: 'code',
-      url: 'https://drive.google.com/drive/folders/1UZkDd43JaAJsH6YPPcjoIcCLW2wZBCNB?usp=sharing', // Or a Drive link to a PDF of code
-      size: 3
+      url: 'https://drive.google.com/drive/folders/1UZkDd43JaAJsH6YPPcjoIcCLW2wZBCNB?usp=sharing', 
+      size: 2
     },
-     {
-      id: 'd1',
+    {
+      id: 'd3',
       title: 'Exhibition document',
       description: 'Self skills review at first game development stage.',
       type: 'document',
-      url: 'https://docs.google.com/document/d/1tNHUWtEjo0H_otNmhX_7Qwq2EHBCUYB5/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true', // Or a Drive link to a PDF of code
-      size: 3
+      url: 'https://docs.google.com/document/d/1tNHUWtEjo0H_otNmhX_7Qwq2EHBCUYB5/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true', 
+      size: 2
     }
   ],
 
