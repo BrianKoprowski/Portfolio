@@ -52,7 +52,7 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
       type: 'video',
       // PASTE GOOGLE DRIVE LINK HERE
       url: 'https://drive.google.com/file/d/17lfQ3O6ybXrn3ouxm1EFndOqQsuY9byT/view?usp=sharing',
-      size: 2
+      size: 1
     },
     {
       id: 'a4',
@@ -61,7 +61,7 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
       type: 'video',
       // PASTE GOOGLE DRIVE LINK HERE
       url: 'https://drive.google.com/file/d/1Iluv0DgeUNlDctRIUjFbMDSVlTZujpQy/view?usp=sharing',
-      size: 2
+      size: 1
     },
     {
       id: 'a5',
