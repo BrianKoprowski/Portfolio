@@ -38,11 +38,11 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
     },
      {
       id: 'a2',
-      title: 'Audio Remake',
-      description: 'Minecraft audio remake.',
+      title: 'Audio Replacement Document',
+      description: 'Documentation of Audio replacement.',
       type: 'document',
       // PASTE GOOGLE DRIVE LINK HERE
-      url: 'https://docs.google.com/presentation/d/1qEagNYPG9-aBqtOFMd6NRSpHzRFhBvIj/edit?usp=drive_link&ouid=104221513729059640406&rtpof=true&sd=true',
+      url: 'https://docs.google.com/presentation/d/1o8oxI0wjW5nUKLrZbw8eI2j0kcjcQRCt/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true',
       size: 2
     },
     {
@@ -62,15 +62,6 @@ export const portfolioContent: Record<string, ProjectItem[]> = {
       // PASTE GOOGLE DRIVE LINK HERE
       url: 'https://drive.google.com/file/d/1Iluv0DgeUNlDctRIUjFbMDSVlTZujpQy/view?usp=sharing',
       size: 1
-    },
-    {
-      id: 'a5',
-      title: 'Audio Replacement Document',
-      description: 'Documentation of Audio replacement.',
-      type: 'document',
-      // PASTE GOOGLE DRIVE LINK HERE
-      url: 'https://docs.google.com/presentation/d/1qEagNYPG9-aBqtOFMd6NRSpHzRFhBvIj/edit?usp=sharing&ouid=104221513729059640406&rtpof=true&sd=true',
-      size: 3
     }
   ],
 
